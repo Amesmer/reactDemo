@@ -1,26 +1,91 @@
-import React from 'react';
+import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import TodoList from './components/TodoList'
+// 导入todoitem类型
+import { TodoItem } from './type/todos'
+import TodoAdd from './components/TodoAdd'
+// type TodoItem = {
+//   id: number,
+//   text: string,
+//   done: boolean
+// }
+type Todos = {
+  todos: TodoItem[]
 }
+
+const todos: TodoItem[] = [{
+  id: 1,
+  text: '吃饭',
+  done: true
+},
+{
+  id: 2,
+  text: '休息',
+  done: false
+}]
+
+// 第一个类型变量属性    第二个是状态
+class App extends Component<{}, Todos>{
+  state: Todos = { todos }
+  changeStatus = (id: number) => {
+    // this.state.todos.map((item) => {
+    //   if (item.id == id) {
+    //     item.done = !item.done
+    //   }
+    // })
+
+    let newtodos = Object.assign(this.state.todos)
+
+    this.setState({
+      todos: newtodos.map((item: TodoItem) => {
+        if (item.id == id) {
+          console.log('this.state.todos',item);
+
+          item.done = !item.done
+          console.log(this.state.todos);
+          
+        }
+      })
+    })
+    console.log('this.state.todos',this.state.todos);
+    
+    
+  }
+  delItem = (id: number) => {
+    // this.state.todos.splice(id-1,1)
+    this.setState({
+      todos: this.state.todos.filter((item) => {
+        return item.id != id
+      })
+    })
+  }
+  onAddTodo = (text: string) => {
+    console.log('234234');
+    this.setState({
+      //  todos:this.state.todos.push({ id: this.state.todos.length + 1, 
+      //     text: text, 
+      //     done: false })
+      todos: [...this.state.todos, {
+        id: this.state.todos.length + 1,
+        text: text,
+        done: false
+      }]
+
+    })
+  }
+  render() {
+
+    return (
+      <section className='todoapp'>
+        {/* 添加任务 */}
+        <TodoAdd onAddTodo={this.onAddTodo} />
+        <TodoList list={this.state.todos} delItem={this.delItem} changeStatus={this.changeStatus} />
+      </section>
+    )
+  }
+}
+
+
 
 export default App;
