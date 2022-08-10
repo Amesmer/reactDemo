@@ -29,28 +29,16 @@ const todos: TodoItem[] = [{
 class App extends Component<{}, Todos>{
   state: Todos = { todos }
   changeStatus = (id: number) => {
-    // this.state.todos.map((item) => {
-    //   if (item.id == id) {
-    //     item.done = !item.done
-    //   }
-    // })
-
-    let newtodos = Object.assign(this.state.todos)
-
+    // let newtodos=[...this.state.todos]
     this.setState({
-      todos: newtodos.map((item: TodoItem) => {
+      todos: this.state.todos.map((item) => {
         if (item.id == id) {
-          console.log('this.state.todos',item);
-
           item.done = !item.done
-          console.log(this.state.todos);
-          
         }
+        return item
       })
     })
     console.log('this.state.todos',this.state.todos);
-    
-    
   }
   delItem = (id: number) => {
     // this.state.todos.splice(id-1,1)

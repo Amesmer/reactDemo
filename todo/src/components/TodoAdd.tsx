@@ -14,10 +14,12 @@ class TodoAdd extends React.Component<Props,State>{
     state:State={
         text:''
     }
+    
     onChange=(e:React.ChangeEvent<HTMLInputElement>)=>{
         this.setState({
             text:e.target.value
         })
+        
     }
     onKeyDown=(e:React.KeyboardEvent<HTMLInputElement>)=>{
     //   if(e.keyCode===13) {
