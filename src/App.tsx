@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
@@ -8,17 +8,30 @@ const Hello: FC<Props> = ({ name, age }) => {
   const myClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     console.log('略略略', e.currentTarget);
   }
+  const mychange=(e:React.ChangeEvent<HTMLInputElement>,name:string)=>{
+
+  }
   return (<div>hi myname:{name},my age{age}
     <button onClick={myClick}></button>
-    <input type="text" onChange={(e: React.ChangeEvent<HTMLInputElement>) => { }} />
+    <input type="text" onChange={(e)=>{mychange(e,name)} } />
   </div>
   )
 }
 
 // 可省略FC
-const Helloagain = ({ name, age }: Props) => (
-  <div>hi myname:{name},my age{age}</div>
-)
+const Helloagain = ({ name, age }: Props) => {
+ useEffect(()=>{
+  // 异步 在每一轮的渲染结束后执行
+  console.log('exec');
+  document.title='say my name'
+  // effect每次都会先执行卸载函数  (effect的返回函数)
+  return ()=>{
+    console.log('unmount');
+    
+  }
+ })
+ return (<div>hi myname:{name},my age{age}</div>) 
+}
 
 // class组件  带默认值
 type State = { count: number }
