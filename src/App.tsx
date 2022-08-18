@@ -2,6 +2,7 @@ import React, { FC, useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Com_hook from './Hookstest'
+import GetRnd from './MyRnd'
 
 // 函数组件
 type Props = { name: string, age?: number }
@@ -113,6 +114,7 @@ const App = () => (
     <C1 name="we"></C1>
     <C2></C2>
      <Com_hook filmId={2} ></Com_hook>
+     <GetRnd/>
 
   </div>
 )

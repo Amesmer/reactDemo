@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, {  useEffect, useState } from 'react';
 // 自定义hooks   抽离代码逻辑
 
 // type Params={
@@ -6,9 +6,9 @@ import React, { FC, useEffect, useState } from 'react';
 //   data:{},
 //   filmId:string
 // }
-const useFetchData = (filmId ) => {
-    const [loading, setLoading]= useState(true);
-    const [data, setData] = useState({});
+const useFetchData = (filmId:String ):any => {
+    const [loading, setLoading]= useState<Boolean>(true);
+    const [data, setData] = useState<any>({});
     
     useEffect(() => {
       setLoading(true);
@@ -23,12 +23,12 @@ const useFetchData = (filmId ) => {
     return [loading, data];
   };
 
-  export default  function Com_hook({ filmId }) {
+  export default  function Com_hook  ({ filmId }:any) {
     const [loading, data] = useFetchData(filmId);
   
-    // if (loading === true) {
-    //   return <p>Loading ...</p>;
-    // }
+    if (loading === true) {
+      return <p>Loading ...</p>;
+    }
   
     return (
       <div>
