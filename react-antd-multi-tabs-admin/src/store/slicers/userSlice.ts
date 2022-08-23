@@ -22,6 +22,11 @@ export const userSlice = createSlice({
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
     setUserInfo: (state, action) => {
+      // state对象
+      console.log(state, 'state');
+      // 传入来的结果
+      console.log('action', action);
+      // 结果复制给redux管理
       state.UserInfo = action.payload
     }
   }

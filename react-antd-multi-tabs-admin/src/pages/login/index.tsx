@@ -34,7 +34,9 @@ const LoginForm: FC = () => {
     if (process.env.NODE_ENV === 'development') {
       const { username, password } = values
       try {
+        // 登录接口
         const result = await session.login({ username, password })
+        // 结果记录到redux
         dispatch(setUserInfo(result))
         history.push('/')
       } catch (e) {

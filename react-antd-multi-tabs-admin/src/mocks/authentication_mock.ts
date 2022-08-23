@@ -32,6 +32,7 @@ export const userRes: UserInfo[] = [
 ]
 
 const app = [
+  // 登录mock接口
   rest.post('/login', (req, res, ctx) => {
     // Persist user's authentication in the session
     console.log('...............msw mock login.......')
