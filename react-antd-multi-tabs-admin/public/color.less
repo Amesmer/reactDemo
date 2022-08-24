@@ -6696,7 +6696,7 @@ tr > .ant-picker-cell-in-view.ant-picker-cell-range-hover-start:last-child::afte
 .ant-menu-submenu-title:active {
   background: color(~`colorPalette("@{link-color}", 1)`);
 }
-.ant-menu-item > a {
+.ant-menu-item  a {
   color: @text-color;
 }
 .ant-menu-item > a:hover {
@@ -6729,9 +6729,9 @@ tr > .ant-picker-cell-in-view.ant-picker-cell-range-hover-start:last-child::afte
 .ant-menu-item-selected {
   color: @link-color;
 }
-.ant-menu-item-selected > a,
-.ant-menu-item-selected > a:hover {
-  color: @link-color;
+.ant-menu-item-selected  a,
+.ant-menu-item-selected  a:hover {
+  color: @link-color!important;
 }
 .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
   background-color: color(~`colorPalette("@{link-color}", 1)`);

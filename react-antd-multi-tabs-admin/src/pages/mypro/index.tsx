@@ -33,7 +33,7 @@ const treeData: DataNode[] = [
     },
   ];
 
-const TReeCom:FC=()=>{
+const TreeCom:FC=()=>{
     const onSelect: TreeProps['onSelect'] = (selectedKeys, info) => {
         console.log('selected', selectedKeys, info);
       };
@@ -68,7 +68,10 @@ const MyPropage: FC = () => {
             <h5>this is mypage</h5>
             <p>{count}</p>
             <button className={styles.mybtn}  onClick={btnClick}>+1</button>
-            <TReeCom/>
+            <div className={styles.treeCon}>
+               <TreeCom/>
+            </div>
+          
         </div>
     )
 }
