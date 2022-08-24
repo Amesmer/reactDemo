@@ -20,9 +20,9 @@ const noCheckAuth = ['/', '/403', '/test-api', '/workspace'] // 不需要检查�
 // 检查权限
 const checkAuth = (newPathname: string): boolean => {
   // 不需要检查权限的
-  // if (noCheckAuth.includes(newPathname)) {
-  //   return true
-  // }
+  if (noCheckAuth.includes(newPathname)) {
+    return true
+  }
   // const { tabKey: currentKey } = getKeyName(newPathname)
   // return isAuthorized(currentKey)
   return !!newPathname

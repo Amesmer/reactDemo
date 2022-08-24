@@ -6692,6 +6692,7 @@ tr > .ant-picker-cell-in-view.ant-picker-cell-range-hover-start:last-child::afte
 .ant-menu-submenu-selected {
   color: @link-color;
 }
+
 .ant-menu-item:active,
 .ant-menu-submenu-title:active {
   background: color(~`colorPalette("@{link-color}", 1)`);
@@ -6810,7 +6811,7 @@ tr > .ant-picker-cell-in-view.ant-picker-cell-range-hover-start:last-child::afte
 }
 .ant-menu-horizontal > .ant-menu-item,
 .ant-menu-horizontal > .ant-menu-submenu {
-  border-bottom: 2px solid transparent;
+  border-bottom: 2px solid transparent!important;
 }
 .ant-menu-horizontal > .ant-menu-item:hover,
 .ant-menu-horizontal > .ant-menu-submenu:hover,
@@ -6823,10 +6824,10 @@ tr > .ant-picker-cell-in-view.ant-picker-cell-range-hover-start:last-child::afte
   color: @link-color;
   border-bottom: 2px solid @link-color;
 }
-.ant-menu-horizontal > .ant-menu-item > a {
+.ant-menu-horizontal > .ant-menu-item  a {
   color: @text-color;
 }
-.ant-menu-horizontal > .ant-menu-item > a:hover {
+.ant-menu-horizontal > .ant-menu-item  a:hover {
   color: @link-color;
 }
 .ant-menu-horizontal > .ant-menu-item-selected > a {
