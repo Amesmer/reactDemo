@@ -5,6 +5,8 @@ import TodoList from './components/TodoList'
 // 导入todoitem类型
 import { TodoItem } from './type/todos'
 import TodoAdd from './components/TodoAdd'
+import Home from './components/Home'
+
 // type TodoItem = {
 //   id: number,
 //   text: string,
@@ -65,11 +67,15 @@ class App extends Component<{}, Todos>{
   render() {
 
     return (
-      <section className='todoapp'>
+      <div>
+         <section className='todoapp'>
         {/* 添加任务 */}
         <TodoAdd onAddTodo={this.onAddTodo} />
         <TodoList list={this.state.todos} delItem={this.delItem} changeStatus={this.changeStatus} />
       </section>
+       <Home></Home>
+      </div>
+     
     )
   }
 }
