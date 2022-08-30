@@ -3,13 +3,19 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-
+import store from './redux/store'
+// 导入provide包裹结构  达到统一维护store的效果
+import { Provider } from 'react-redux';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
+  // 严格模式会导致useeffect 调用两次
   // <React.StrictMode>
-    <App />
+  <Provider store={store}>
+     <App />
+  </Provider>
+   
   // </React.StrictMode>
 );
 

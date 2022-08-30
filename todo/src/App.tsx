@@ -6,6 +6,8 @@ import TodoList from './components/TodoList'
 import { TodoItem } from './type/todos'
 import TodoAdd from './components/TodoAdd'
 import Home from './components/Home'
+import Coma from './components/Com_a'
+import Comb from './components/Com_b'
 
 // type TodoItem = {
 //   id: number,
@@ -74,6 +76,8 @@ class App extends Component<{}, Todos>{
         <TodoList list={this.state.todos} delItem={this.delItem} changeStatus={this.changeStatus} />
       </section>
        <Home></Home>
+       <Coma></Coma>
+       <Comb></Comb>
       </div>
      
     )
