@@ -15,11 +15,13 @@ import promiseMiddleware from 'redux-promise'
 import tabReducer from '@/store/slicers/tabSlice'
 import userReducer from '@/store/slicers/userSlice'
 import appReducer from '@/store/slicers/appSlice'
+import TodosReducer from '@/store/slicers/todos.slice'
 
 const reducers = combineReducers({
   tab: tabReducer,
   user: userReducer,
-  app: appReducer
+  app: appReducer,
+  todos:TodosReducer
 })
 
 const persistConfig = {
@@ -53,3 +55,5 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   unknown,
   Action<string>
 >
+
+

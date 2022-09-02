@@ -38,7 +38,8 @@ const MyUpload: FC<Props> = (props) => {
   const uploadProps = {
     action,
     onStart,
-    customRequest({ file, filename }) {
+    customRequest(options) {
+      const { file, filename } =options
       const isType = accept.some((item: string) => file.type.includes(item))
       const isSize = file.size / 1024 / 1024 < size
       if (!isType || !isSize) {
