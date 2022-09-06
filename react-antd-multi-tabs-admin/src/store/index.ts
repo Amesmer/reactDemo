@@ -1,6 +1,7 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit'
 import storage from 'redux-persist/lib/storage'
 import { combineReducers } from 'redux'
+import logger from 'redux-logger'
 import {
   persistReducer,
   persistStore,
@@ -37,12 +38,13 @@ const persistedReducer = persistReducer(persistConfig, reducers)
 export const store = configureStore({
   reducer: persistedReducer,
   devTools: process.env.NODE_ENV !== 'production',
+  // getDefaultMiddleware获取内置中间件 concat自己需要的中间件
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
       }
-    }).concat([promiseMiddleware])
+    }).concat([promiseMiddleware]) //logger
 })
 
 export const persistor = persistStore(store)

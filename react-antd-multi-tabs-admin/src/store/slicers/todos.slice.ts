@@ -1,33 +1,44 @@
-import { createSlice, nanoid, createAsyncThunk } from "@reduxjs/toolkit";
+import {
+    createSlice,
+    nanoid,
+    createAsyncThunk,
+    createEntityAdapter,
+    createSelector
+} from "@reduxjs/toolkit";
 import axios from "axios";
+export const TODOS_FEATURE_KEY = 'todos'
+const todosAdapter = createEntityAdapter()
+console.log('--------', todosAdapter.getInitialState());
 
-export const TODOS_FEATURE_KEY='todos'
-
-// 状态切片
+// 状态切片 
 //第一种 异步调用方法 
 export const loadTodos = createAsyncThunk(
     `{TODOS_FEATURE_KEY}/loadTodos`,
     (payload: string, { dispatch }) => {
         console.log('loading------');
-        
+
         axios.get(payload).then(response => {
             dispatch(setTodos(response.data))
         })
     })
 //第二种异步方法  返回promise
-export const secloadTodos:any = createAsyncThunk(
+export const secloadTodos: any = createAsyncThunk(
     'todos/loadTodos',
     (payload: string, { dispatch }) => {
         console.log('loading------');
-        
+
         axios.get(payload)
+        // return new promise(res=>{
+        //     {data:[]}
+        // })
     })
 
 
 //                      别名
 const { actions, reducer: TodosReducer } = createSlice({
     name: TODOS_FEATURE_KEY,
-    initialState: [],
+    // initialState: [],
+    initialState: todosAdapter.getInitialState(),
     reducers: {
         // 添加任务
         // addTodo(state, action) {
@@ -36,9 +47,12 @@ const { actions, reducer: TodosReducer } = createSlice({
         //     state.push(action.payload)
         // }
         addTodo: {
-            reducer(state, action) {
-                state.push(action.payload)
-            },
+            // reducer(state, action) {
+            //     // state.push(action.payload)
+            //     todosAdapter.addOne(state,action)
+            // },
+            // 简化成
+            reducer: todosAdapter.addOne,
             // 载荷预处理
             prepare(payload): any {
                 return {
@@ -51,45 +65,61 @@ const { actions, reducer: TodosReducer } = createSlice({
             }
         },
         delItem(state, action) {
-            console.log(state[0]['id']);
             // filter不行
             // state.filter((item)=>
             //      item.id!=action.payload
             // )
             console.log(action.payload);
-            state.splice(state.findIndex((item) => item.id === action.payload), 1)
-
+            // state.splice(state.findIndex((item) => item.id === action.payload), 1)
+            todosAdapter.removeOne(state, action.payload)
 
         },
         changeStatus(state, action) {
-            const index = state.findIndex(todo => todo.id === action.payload)
-            if (index !== -1) state[index].done = !state[index].done
+            // const index = state.findIndex(todo => todo.id === action.payload)
+            // if (index !== -1) state[index].done = !state[index].done
+
+            // 参数变为item
+            console.log(action);
+            // action.payload.done=!action.payload.done
+            // console.log(action);
+            let temp = { id: action.payload.id, changes: { ...action.payload } }
+            temp.changes.done = !temp.changes.done
+            console.log(temp);
+
+            todosAdapter.updateOne(state, temp)
         },
         setTodos(state, action) {
-            action.payload.forEach(item => {
-                state.push(item)
-            });
+            // action.payload.forEach(item => {
+            //     state.push(item)
+            // });
+            todosAdapter.addMany(state, action)
         }
 
     },
-     //接收异步方法
-    extraReducers:{
-        [secloadTodos.pending](){
+    //接收异步方法
+    extraReducers: {
+        [secloadTodos.pending]() {
             console.log('pending');
-            
+
         },
-        [secloadTodos.fulfilled](state,action){
-            console.log('fulfilled');
-            action.payload.data.forEach(item => {
-                state.push(item)
-            });
-        },
-        [secloadTodos.rejected](state,action){
+        // [secloadTodos.fulfilled](state,action){
+        //     console.log('fulfilled');
+        //     // action.payload.data.forEach(item => {
+        //     //     state.push(item)
+        //     // });
+        //     todosAdapter.addMany(state,action)
+        // },
+        // 省略写法
+        [secloadTodos.fulfilled]: todosAdapter.addMany,
+        [secloadTodos.rejected](state, action) {
             console.log(action.error);
-            
+
         }
     }
 })
 
+// 状态选择器   选择需要的状态返回
+const{selectAll}=todosAdapter.getSelectors()
+export const selectTodos=  createSelector((state:any)=>state[TODOS_FEATURE_KEY],selectAll)
 export const { addTodo, delItem, changeStatus, setTodos } = actions
 export default TodosReducer
