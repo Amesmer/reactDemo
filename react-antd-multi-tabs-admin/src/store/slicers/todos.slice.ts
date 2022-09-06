@@ -26,11 +26,7 @@ export const secloadTodos: any = createAsyncThunk(
     'todos/loadTodos',
     (payload: string, { dispatch }) => {
         console.log('loading------');
-
-        axios.get(payload)
-        // return new promise(res=>{
-        //     {data:[]}
-        // })
+      return  axios.get(payload)
     })
 
 
@@ -102,15 +98,17 @@ const { actions, reducer: TodosReducer } = createSlice({
             console.log('pending');
 
         },
-        // [secloadTodos.fulfilled](state,action){
-        //     console.log('fulfilled');
-        //     // action.payload.data.forEach(item => {
-        //     //     state.push(item)
-        //     // });
-        //     todosAdapter.addMany(state,action)
-        // },
+        [secloadTodos.fulfilled](state,action){
+            console.log('fulfilled');
+            // action.payload.data.forEach(item => {
+            //     state.push(item)
+            // });
+            
+            console.log('action',action);
+            todosAdapter.addMany(state,action.payload.data)
+        },
         // 省略写法
-        [secloadTodos.fulfilled]: todosAdapter.addMany,
+        // [secloadTodos.fulfilled]: todosAdapter.addMany,
         [secloadTodos.rejected](state, action) {
             console.log(action.error);
 

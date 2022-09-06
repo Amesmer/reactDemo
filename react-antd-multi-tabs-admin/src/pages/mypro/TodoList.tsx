@@ -20,7 +20,7 @@ export const TodoList = () => {
         // 第一种异步方法
         // dispatch(loadTodos('http://localhost:4200/db.json'))
         // 第二种异步方法 extrareducer
-        dispatch(secloadTodos('http://localhost:4200/db.json'))
+        dispatch(secloadTodos('/db.json'))
 
     }, [dispatch])
     console.log(todos);
